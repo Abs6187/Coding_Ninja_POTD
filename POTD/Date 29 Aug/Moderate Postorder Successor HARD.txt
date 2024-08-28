@@ -1,0 +1,51 @@
+#include <bits/stdc++.h> 
+/************************************************************
+
+    Following is the TreeNode class structure
+
+    template <typename T>
+    class TreeNode {
+       public:
+        T val;
+        TreeNode<T> *left;
+        TreeNode<T> *right;
+
+        TreeNode(T val) {
+            this->val = val;
+            left = NULL;
+            right = NULL;
+        }
+    };
+
+************************************************************/
+int postOrderSuccessor(TreeNode<int> *root, int M) {
+    // Vector to store the postorder traversal
+    vector<int> postorder;
+    stack<TreeNode<int>*> stk;
+    TreeNode<int>* lastVisited = nullptr;
+    
+    while (!stk.empty() || root != nullptr) {
+        if (root != nullptr) {
+            stk.push(root);
+            root = root->left;
+        } else {
+            TreeNode<int>* node = stk.top();
+            if (node->right != nullptr && lastVisited != node->right) {
+                root = node->right;
+            } else {
+                postorder.push_back(node->val);
+                lastVisited = node;
+                stk.pop();
+            }
+        }
+    }
+    
+    // Find the successor in the postorder traversal
+    for (int i = 0; i < postorder.size(); ++i) {
+        if (postorder[i] == M) {
+            return (i + 1 < postorder.size()) ? postorder[i + 1] : -1;
+        }
+    }
+    
+    return -1;
+}
