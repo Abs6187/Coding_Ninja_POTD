@@ -1,0 +1,23 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int minimumFlips(int a, int b, int c) {
+    int flips = 0;
+    
+    for (int i = 0; i < 32; ++i) {
+        int bitA = (a >> i) & 1;
+        int bitB = (b >> i) & 1;
+        int bitC = (c >> i) & 1;
+        
+        if (bitC == 0) {
+            // Both bits in A and B must be 0
+            if (bitA == 1) flips++;
+            if (bitB == 1) flips++;
+        } else {
+            // At least one of the bits in A or B must be 1
+            if (bitA == 0 && bitB == 0) flips++;
+        }
+    }
+    
+    return flips;
+}
