@@ -14,5 +14,5 @@ Welcome to the Problem of the Day (POTD) repository for Coding Ninjas! Here, you
 ```plaintext
 POTD/
 ├── Date/
-│   ├── problem.md
-│   └── solution.{language_extension}
+│   ├──easy/moderate/hard
+│   └── solution.txt
