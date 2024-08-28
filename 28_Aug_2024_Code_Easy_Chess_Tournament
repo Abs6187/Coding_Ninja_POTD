@@ -1,0 +1,39 @@
+//Chess Tournament
+#include <bits/stdc++.h>
+using namespace std;
+
+bool isFeasible(vector<int>& positions, int n, int c, int mid) {
+    int count = 1;
+    int last_position = positions[0];
+
+    for (int i = 1; i < n; i++) {
+        if (positions[i] - last_position >= mid) {
+            count++;
+            last_position = positions[i];
+        }
+        if (count == c) {
+            return true;
+        }
+    }
+    return false;
+}
+
+int chessTournament(vector<int> positions, int n, int c) {
+    sort(positions.begin(), positions.end());
+
+    int low = 1, high = positions[n-1] - positions[0];
+    int result = 0;
+
+    while (low <= high) {
+        int mid = (low + high) / 2;
+
+        if (isFeasible(positions, n, c, mid)) {
+            result = mid;
+            low = mid + 1;
+        } else {
+            high = mid - 1;
+        }
+    }
+
+    return result;
+}
