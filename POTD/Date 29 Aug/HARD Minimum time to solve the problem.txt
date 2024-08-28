@@ -1,0 +1,40 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+bool canDistribute(const vector<int>& subjects, int K, long long mid) {
+    int friendsUsed = 1;
+    long long currentLoad = 0;
+    
+    for (int subject : subjects) {
+        if (currentLoad + subject <= mid) {
+            currentLoad += subject;
+        } else {
+            friendsUsed++;
+            if (friendsUsed > K || subject > mid) {
+                return false;
+            }
+            currentLoad = subject;
+        }
+    }
+    
+    return true;
+}
+
+long long int minimumRequiredTime(vector<int> &subjects, int K) {
+    long long left = *max_element(subjects.begin(), subjects.end());
+    long long right = accumulate(subjects.begin(), subjects.end(), 0LL);
+    long long answer = right;
+    
+    while (left <= right) {
+        long long mid = left + (right - left) / 2;
+        
+        if (canDistribute(subjects, K, mid)) {
+            answer = mid;
+            right = mid - 1;
+        } else {
+            left = mid + 1;
+        }
+    }
+    
+    return answer;
+}
