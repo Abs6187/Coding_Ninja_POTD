@@ -1,0 +1,48 @@
+//Code here
+int findIndex(vector<int> &inOrder, int val, int start, int end) {
+    for (int i = start; i <= end; i++) {
+        if (inOrder[i] == val) return i;
+    }
+    return -1;
+}
+
+vector<int> filterLevelOrder(vector<int> &levelOrder, unordered_set<int> &s) {
+    vector<int> newLevelOrder;
+    for (int i = 0; i < levelOrder.size(); i++) {
+        if (s.find(levelOrder[i]) != s.end()) {
+            newLevelOrder.push_back(levelOrder[i]);
+        }
+    }
+    return newLevelOrder;
+}
+
+TreeNode* constructTree(vector<int> &inOrder, vector<int> &levelOrder, int start, int end) {
+    if (start > end) return nullptr;
+
+    int rootVal = levelOrder[0];
+    TreeNode* root = new TreeNode(rootVal);
+
+    int inIndex = findIndex(inOrder, rootVal, start, end);
+
+    unordered_set<int> leftSet(inOrder.begin() + start, inOrder.begin() + inIndex);
+    unordered_set<int> rightSet(inOrder.begin() + inIndex + 1, inOrder.begin() + end + 1);
+
+    vector<int> leftLevelOrder = filterLevelOrder(levelOrder, leftSet);
+    vector<int> rightLevelOrder = filterLevelOrder(levelOrder, rightSet);
+
+    root->left = constructTree(inOrder, leftLevelOrder, start, inIndex - 1);
+    root->right = constructTree(inOrder, rightLevelOrder, inIndex + 1, end);
+
+    return root;
+}
+
+TreeNode* getTreeFromInorderAndLevelorder(int n, vector<int> &inOrder, vector<int> &levelOrder) {
+    return constructTree(inOrder, levelOrder, 0, n - 1);
+}
+
+void printInOrder(TreeNode* root) {
+    if (root == nullptr) return;
+    printInOrder(root->left);
+    cout << root->data << " ";
+    printInOrder(root->right);
+}
