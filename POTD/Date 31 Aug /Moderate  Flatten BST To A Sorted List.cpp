@@ -1,58 +1,49 @@
-void inorderTraversal(TreeNode<int> *root, vector<TreeNode<int>*> &v){
+void inorder(TreeNode<int>* root,vector<int>&v){
 
-    if(root == NULL){
+    if(root==NULL){
 
         return;
 
     }
 
-    //L
+    inorder(root->left,v);
 
-    if(root -> left!= NULL){
+    v.push_back(root->data);
 
-        inorderTraversal(root -> left,v);
-
-    }
-
-    
-
-    //N
-
-    v.push_back(root);
-
-    //R
-
-    if(root -> right !=NULL){
-
-        inorderTraversal(root -> right,v);
+    inorder(root->right,v);
 
     }
-
-}
 
 TreeNode<int>* flatten(TreeNode<int>* root)
 
 {
 
-    vector<TreeNode<int>*> v;
+    vector<int>v;
 
-    inorderTraversal(root, v);
+    inorder(root,v);
 
-    TreeNode<int>* head = v[0];
+    TreeNode<int>* newroot=new TreeNode<int>(v[0]);
 
-    for(int i=0; i< v.size()-1; i++){
+    TreeNode<int>* curr=newroot;
 
-        v[i] -> left = NULL;
+    for(int i=1;i<v.size();i++){
 
-        v[i] -> right = v[i+1];
+        TreeNode<int>* temp=new TreeNode<int>(v[i]);
+
+        curr->left=NULL;
+
+        curr->right=temp;
+
+        curr=temp;
 
     }
 
-    v[v.size()-1] -> left = NULL;
+    curr->left=NULL;
 
-    v[v.size()-1] -> right = NULL;
+    curr->right=NULL;
 
-    return head;
+    return newroot;
+
+ 
 
 }
-
