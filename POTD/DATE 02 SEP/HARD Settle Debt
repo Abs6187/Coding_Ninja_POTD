@@ -1,0 +1,53 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+ 
+
+int settleDebt(vector<vector<int>>& transactions) {
+
+    unordered_map<int, long> balance;
+
+    for (auto& t : transactions) {
+
+        balance[t[0]] -= t[2];
+
+        balance[t[1]] += t[2];
+
+    }
+
+    vector<long> debt;
+
+    for (auto& kvp : balance) {
+
+        if (kvp.second != 0) debt.push_back(kvp.second);
+
+    }
+
+    int res = 0;
+
+    while (!debt.empty()) {
+
+        sort(debt.begin(), debt.end());
+
+        long p = debt.back(); debt.pop_back();
+
+        long n = debt.front(); debt.erase(debt.begin());
+
+        if (p + n > 0) {
+
+            debt.push_back(p + n);
+
+        } else if (p + n < 0) {
+
+            debt.push_back(p + n);
+
+        }
+
+        ++res;
+
+    }
+
+    return res;
+
+}
