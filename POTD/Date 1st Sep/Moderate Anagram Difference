@@ -1,0 +1,31 @@
+#include <bits/stdc++.h> 
+
+int getMinimumAnagramDifference(string &str1, string &str2) {
+
+    // Write your code here.
+
+    vector<int> freq(256,0);
+
+    for(int i=0;i<str1.size();i++){
+
+        freq[str1[i]]++;
+
+        freq[str2[i]]--;
+
+    }
+
+  int count=0;
+
+    for(int i=0;i<256;i++){
+
+        if(freq[i]!=0){
+
+            count+=abs(freq[i]);
+
+        }
+
+    }
+
+    return count/2;
+
+}
