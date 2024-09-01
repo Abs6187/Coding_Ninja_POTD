@@ -1,0 +1,55 @@
+import java.util.* ;
+
+import java.io.*; 
+
+public class Solution 
+
+{
+
+    public static int countNumberOfPalindromeWords(String s) 
+
+    {
+
+        // Write your code here!
+
+        int count = 0;
+
+        List<String> list = new ArrayList<>(Arrays.asList(s.split(" ")));
+
+        if(list.isEmpty())
+
+        {
+
+            return 0;
+
+        }
+
+        //System.out.println(list+" ");
+
+        for(String str : list)
+
+        {
+
+            if(!str.equals(""))
+
+            {
+
+            StringBuilder sb = new StringBuilder(str.toLowerCase());
+
+            sb = sb.reverse();
+
+            if(sb.toString().equals(str.toLowerCase()))
+
+            count++;
+
+            }
+
+            
+
+        }
+
+        return count;
+
+    }
+
+}
