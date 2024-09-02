@@ -1,0 +1,39 @@
+#include <bits/stdc++.h> 
+
+int slotScore(string &o, string &g)
+
+{
+
+    int ans=0,n=g.size();
+
+    unordered_map<char,int>mp;
+
+    for(int i=0;i<n;i++){
+
+        if(o[i]==g[i]) ans+=2,o[i]='0',g[i]='1';
+
+        
+
+    }
+
+    for(auto i:o) mp[i]++;
+
+    for(int i=0;i<n;i++){
+
+        if(mp.find(g[i])!=mp.end()){
+
+            ans++;
+
+            mp[g[i]]--;
+
+            if(mp[g[i]]==0) mp.erase(g[i]);
+
+        }
+
+        
+
+    }
+
+    return ans;
+
+}
