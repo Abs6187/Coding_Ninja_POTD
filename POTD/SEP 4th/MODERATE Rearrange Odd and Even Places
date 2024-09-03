@@ -1,0 +1,73 @@
+#include<bits/stdc++.h>
+
+Node* oddEvenList(Node* head)
+
+{
+
+    if(head == nullptr && head->next == nullptr){
+
+        return head;
+
+    }
+
+ 
+
+    vector<int> arr;  
+
+    Node* temp = head;
+
+    while(temp != nullptr && temp->next != nullptr){
+
+        arr.push_back(temp->data);
+
+        temp = temp->next->next;
+
+    }
+
+    
+
+    if(temp){
+
+        arr.push_back(temp->data);
+
+    }
+
+ 
+
+    temp = head->next;  
+
+    while (temp != nullptr && temp->next != nullptr) {
+
+        arr.push_back(temp->data);
+
+        temp = temp->next->next;
+
+    }
+
+ 
+
+    if(temp){
+
+        arr.push_back(temp->data);
+
+    }
+
+ 
+
+    int i=0;
+
+    temp = head;
+
+    while(temp != nullptr){
+
+        temp->data = arr[i];
+
+        i++;
+
+        temp = temp->next;
+
+    }
+
+    return head;
+
+}
