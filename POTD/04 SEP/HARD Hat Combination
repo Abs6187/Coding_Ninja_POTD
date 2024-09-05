@@ -1,0 +1,59 @@
+#include<bits/stdc++.h>
+
+int mod=1e9+7;
+
+long long f(int i,int people,vector<int> nums[],int n,int m,vector<vector<long long>> &dp){
+
+       if(i>=n) return (__builtin_popcount(people)==m);
+
+       if(dp[i][people]!=-1) return dp[i][people]%mod;
+
+       long long ans=0;
+
+       ans=(ans+f(i+1,people,nums,n,m,dp))%mod;
+
+       for(auto j:nums[i]){
+
+           int bit=(people>>j)&1;
+
+           if(!bit) ans=(ans+f(i+1,people|(1<<j),nums,n,m,dp))%mod;
+
+       }
+
+       return dp[i][people]=ans%mod;
+
+}
+
+int numberWays(vector<vector<int>> &hats) {
+
+    int n=hats.size(),m=hats[0].size();
+
+    int size=0;
+
+    for(int i=0;i<n;i++){
+
+        for(int j=0;j<m;j++){
+
+            size=max(size,hats[i][j]);
+
+        }
+
+    }
+
+    vector<int> mat[size];
+
+    for(int i=0;i<n;i++){
+
+        for(int j=0;j<m;j++){
+
+            mat[hats[i][j]-1].push_back(i);
+
+        }
+
+    }   
+
+    vector<vector<long long>> dp(size,vector<long long>((1<<n)+1,-1));
+
+    return f(0,0,mat,size,n,dp);
+
+}
