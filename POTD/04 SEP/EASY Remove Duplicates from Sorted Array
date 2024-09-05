@@ -1,0 +1,46 @@
+int removeDuplicates(vector<int> &arr, int n) {
+
+    int currIndex = 1;
+
+    int prevIndex = 0;
+
+    int count=0;
+
+    int dupcount =-1;
+
+    while(currIndex < n)
+
+    {
+
+    if(arr[currIndex] != arr[prevIndex])
+
+    {
+
+    currIndex++;
+
+    prevIndex++;
+
+    count++;
+
+    }
+
+    else if(arr[prevIndex] == arr[currIndex])
+
+    {
+
+    currIndex++;
+
+    prevIndex++;
+
+    dupcount++;
+
+    count++;
+
+    }
+
+    }
+
+    return (count-dupcount);
+
+}
+
