@@ -1,24 +1,45 @@
+class Node:
+    def __init__(self, val, next=None):
+        self.data = val
+        self.next = next
+
+
 def rotate(head: Node, k: int) -> Node:
-    # Write your code here.
-    if head is not None and head.next is not None:
-        stack = []
-        n = 1
-        last = head
-        while last.next is not None:
-            n+=1
-            stack.append(last)
-            last = last.next
-        k = k%n
-        if k!=0:
-            i = 0
-            prev = last
-            cur = last
-            while i<k:
-                i+=1
-                prev = cur
-                cur = stack.pop(n-2)
-                n-=1
-            cur.next = None
-            last.next = head
-            head = prev
+
+    # Base condition.
+    if head == None:
+        return head
+
+    len = 1
+    temp = head
+
+    # Calculate length of the linked list.
+    while temp.next != None:
+        temp = temp.next
+        len += 1
+
+    # If k is greater than k bring it in range of 0 - len.
+    if len < k:
+        k = int(k % len)
+
+    k = len - k
+
+    # Number of rotations are same as len so no change in LL.
+    if k == len or k == 0:
+        return head
+
+    count = 1
+    current = head
+
+    while count < k and current != None:
+        current = current.next
+        count += 1
+
+    if current == None:
+        return head
+
+    # Changing pointers.
+    temp.next = head
+    head = current.next
+    current.next = None
     return head
