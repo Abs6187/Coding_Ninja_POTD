@@ -16,3 +16,6 @@ POTD/
 ├── Date/
 │   ├──easy/moderate/hard
 │   └── solution.txt
+
+<img src="https://t.bkit.co/w_66ddf77287aa5.gif" />
+https://t.bkit.co/w_66ddf77287aa5.gif
