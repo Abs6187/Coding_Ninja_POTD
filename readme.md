@@ -9,7 +9,7 @@ Welcome to the Problem of the Day (POTD) repository for Coding Ninjas! Here, you
 3. **Discussion**: We encourage discussions and optimizations. If you have a better solution, don't hesitate to open a pull request. Upload your solution as well
 
 <img src="https://t.bkit.co/w_66ddf77287aa5.gif" />
-https://t.bkit.co/w_66ddf77287aa5.gif
+
 
 
 ## Folder Structure
