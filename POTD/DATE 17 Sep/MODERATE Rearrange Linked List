@@ -1,0 +1,65 @@
+#include <bits/stdc++.h>
+
+
+Node<int>* reverse(Node<int>* head) {
+Node<int>* prevNode = NULL;
+Node<int>* current = head;
+while(current != NULL) {
+Node<int>* nextNode = current->next;
+current->next = prevNode;
+prevNode = current;
+current = nextNode;
+}
+return prevNode;
+}
+
+
+
+
+Node<int>* rearrangeList(Node<int>* head)
+{
+
+
+// Write your code here.
+if(head == NULL || head->next == NULL) return head;
+Node<int>* slow = head;
+Node<int>* fast = head;
+
+
+while(fast->next != NULL && fast->next->next != NULL) {
+slow = slow->next;
+fast = fast->next->next;
+}
+
+
+Node<int>* temp2 = reverse(slow->next);
+slow->next = NULL;
+
+
+
+Node<int>* temp1 = head;
+Node<int>* dummyHead = new Node<int>(-1);
+Node<int>* current = dummyHead;
+
+
+int i = 1;
+while(temp1 != NULL && temp2 != NULL) {
+if(i%2) {
+current->next = temp1;
+current = temp1;
+temp1 = temp1->next;
+} else {
+current->next = temp2;
+current = temp2;
+temp2 = temp2->next;
+}
+i++;
+}
+
+
+if(temp1) current->next = temp1;
+else current->next = temp2;
+
+
+return dummyHead->next;
+}
