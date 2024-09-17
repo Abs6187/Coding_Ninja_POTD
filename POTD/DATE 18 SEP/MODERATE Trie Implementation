@@ -1,0 +1,99 @@
+void solution::insert(string word)
+
+{
+
+    // Write your code here.
+
+    
+
+    TrieNode* pCrawl=root;
+
+    int n=word.size();
+
+    for(int i=0;i<n;i++){
+
+        int index=word[i]-'a';
+
+ 
+
+        if(!pCrawl->children[index]) pCrawl->children[index]=new TrieNode();
+
+ 
+
+        pCrawl=pCrawl->children[index];
+
+ 
+
+    }
+
+    pCrawl->isEnd=true;
+
+}
+
+ 
+
+bool solution::search(string word)
+
+{
+
+    // Write your code here.
+
+    
+
+    TrieNode* pCrawl=root;
+
+    int n=word.size();
+
+    for(int i=0;i<n;i++){
+
+        int index=word[i]-'a';
+
+ 
+
+        if(!pCrawl->children[index]) return false;
+
+ 
+
+        pCrawl=pCrawl->children[index];
+
+ 
+
+    }
+
+    return (pCrawl!=NULL && pCrawl->isEnd);
+
+}
+
+ 
+
+bool solution::startsWith(string word)
+
+{
+
+    // Write your code here.
+
+    
+
+    TrieNode* pCrawl=root;
+
+    int n=word.size();
+
+    for(int i=0;i<n;i++){
+
+        int index=word[i]-'a';
+
+ 
+
+        if(!pCrawl->children[index]) return false;
+
+ 
+
+        pCrawl=pCrawl->children[index];
+
+ 
+
+    }
+
+    return true;
+
+}
