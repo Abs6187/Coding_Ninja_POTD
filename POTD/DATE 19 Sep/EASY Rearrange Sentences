@@ -1,0 +1,73 @@
+#include <bits/stdc++.h> 
+
+ 
+
+struct sentence{
+
+    string identifier;
+
+    string letterSentence;
+
+    sentence(string idf,string ls){
+
+        identifier = idf;
+
+        letterSentence = ls;
+
+    }
+
+};
+
+ 
+
+bool comp(sentence &s1,sentence &s2){
+
+    if(s1.letterSentence == s2.letterSentence) return s1.identifier < s2.identifier;
+
+    return s1.letterSentence < s2.letterSentence;
+
+}
+
+ 
+
+vector<string> reOrderSentences(vector<string> s){
+
+    vector<sentence> temp;
+
+    vector<int> numberSentencesIndices;
+
+    int n = s.size();
+
+    for(int index=0;index<n;index++){
+
+        string identifier;
+
+        int j = 0 , m = s[index].size();
+
+        while(s[index][j] != ' ') identifier.push_back(s[index][j++]);
+
+        j++;
+
+        if(s[index][j] >= '0' && s[index][j] <= '9') numberSentencesIndices.push_back(index);
+
+        else temp.push_back(sentence(identifier,s[index].substr(j,m-j)));
+
+        
+
+    }
+
+    sort(temp.begin(),temp.end(),comp);
+
+    vector<string> ans;
+
+    for(sentence ss : temp){
+
+        ans.push_back(ss.identifier+" "+ss.letterSentence);
+
+    }
+
+    for(int index : numberSentencesIndices) ans.push_back(s[index]);
+
+    return ans;
+
+}
